@@ -115,8 +115,9 @@
     </div>
     <div class="section">
       <div id="controls">
-        <button class="btn btn-info" onclick="startCamera()">Start Camera</button>
-        <button class="btn btn-danger" onclick="stopCamera()">Stop Camera</button>
+        <button class="btn btn-info" onclick="startCamera()">Start</button>
+        <button class="btn btn-danger" onclick="stopCamera()">Stop</button>
+        <button class="btn btn-danger" onclick="switchCamera()">Switch</button>
         <button class="btn btn-primary" onclick="Speak()">Speak</button>
         <button id="button1" onclick="location.reload()">Reset</button>
       </div>
@@ -138,9 +139,6 @@
       speeach.text=document.getElementById("recognized-alphabet").value;
       window.speechSynthesis.speak(speeach);
     };
-
-
-
 
     async function startCamera() {
       try {
@@ -194,6 +192,14 @@
     $(document).ready(function () {
       getRecognizedAlphabet();
     });
+
+    async function switchCamera() {
+      if (document.getElementById('video').srcObject != null) {
+        stopCamera();
+        currentCamera = currentCamera === 'environment' ? 'user' : 'environment';
+        startCamera();
+      }
+    }
 
     function getRecognizedAlphabet() {
       $.ajax({
